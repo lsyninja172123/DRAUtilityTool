@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="44893" started-at="2020-02-12T11:38:54Z" finished-at="2020-02-12T11:39:39Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="44893" started-at="2020-02-12T11:38:54Z" finished-at="2020-02-12T11:39:39Z">
+      <class name="org.testng.maven.test.CasaGrande">
+        <test-method status="PASS" signature="browserLaunch()[pri:0, instance:org.testng.maven.test.CasaGrande@3abbfa04]" name="browserLaunch" is-config="true" duration-ms="4945" started-at="2020-02-12T11:38:54Z" finished-at="2020-02-12T11:38:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- browserLaunch -->
+        <test-method status="PASS" signature="test()[pri:0, instance:org.testng.maven.test.CasaGrande@3abbfa04]" name="test" duration-ms="39127" started-at="2020-02-12T11:38:59Z" finished-at="2020-02-12T11:39:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+        <test-method status="PASS" signature="screenShot(org.testng.ITestResult)[pri:0, instance:org.testng.maven.test.CasaGrande@3abbfa04]" name="screenShot" is-config="true" duration-ms="3" started-at="2020-02-12T11:39:38Z" finished-at="2020-02-12T11:39:38Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=test status=SUCCESS method=CasaGrande.test()[pri:0, instance:org.testng.maven.test.CasaGrande@3abbfa04] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- screenShot -->
+        <test-method status="PASS" signature="browserQuit()[pri:0, instance:org.testng.maven.test.CasaGrande@3abbfa04]" name="browserQuit" is-config="true" duration-ms="788" started-at="2020-02-12T11:39:38Z" finished-at="2020-02-12T11:39:39Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- browserQuit -->
+      </class> <!-- org.testng.maven.test.CasaGrande -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
