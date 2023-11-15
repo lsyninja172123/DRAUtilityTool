@@ -48,7 +48,7 @@ public class BaseClass {
 			return driver;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Invalid Browser Name");
+			throw new Exception("Invalid Browser");
 		}
 	}
 
