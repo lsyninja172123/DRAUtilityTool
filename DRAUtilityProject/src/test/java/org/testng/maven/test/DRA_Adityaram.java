@@ -139,10 +139,10 @@ public class DRA_Adityaram extends BaseClass {
 		int leadDetailsTotalNoOfRows = leadDetailsWorksheet.getRows();
 		System.out.println("leadDetailsTotalNoOfRows is : " + leadDetailsTotalNoOfRows);
 		//outputExcelFile ="C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic Reality\\Reports\\".concat("TVSEmeraldReport_" + dateFormat.format(date) + ".xls");
-		outputExcelFile =System.getProperty("user.dir").concat("AkshayaReport_" + dateFormat.format(date) + ".xls");
+		outputExcelFile =System.getProperty("user.dir").concat("AdityaramReport_" + dateFormat.format(date) + ".xls");
 		
 		WritableWorkbook outputFileWorkbook = Workbook.createWorkbook(new File(outputExcelFile));
-		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("TVSEmerald", 0);
+		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("Adityaram", 0);
 
 		List<String> companyNameList = new ArrayList<String>();
 		List<String> toList = new ArrayList<String>();
@@ -262,29 +262,20 @@ public class DRA_Adityaram extends BaseClass {
 						
 						elementClick(arhp.getSaveButton());
 						
-						statusMessage = getText(arhp.getSuccessMessage());
-						leadStatusList.add(statusMessage);
-						System.out.println("statusMessage is : "+statusMessage);
-						Thread.sleep(2000);
-						elementClick(arhp.getClosePopup());
 						
-						/*
-						 * Alert alert = null; WebDriverWait wb = new WebDriverWait(driver, 30);
-						 * //wb.until(ExpectedConditions.alertIsPresent());
-						 * if(wb.until(ExpectedConditions.alertIsPresent()) != null){ try { alert =
-						 * driver.switchTo().alert(); statusMessage = alert.getText();
-						 * leadStatusList.add(statusMessage);
-						 * System.out.println("Status Message is : "+statusMessage); alert.accept();
-						 * Thread.sleep(1000); } catch (Exception e) { e.printStackTrace(); throw new
-						 * Exception(); }
-						 * 
-						 * } else { driver.switchTo().defaultContent(); statusMessage =
-						 * getText(arhp.getSuccessMessage()); leadStatusList.add(statusMessage);
-						 * System.out.println("statusMessage is : "+statusMessage); Thread.sleep(2000);
-						 * driver.navigate().refresh(); Thread.sleep(2000); }
-						 * //driver.switchTo().defaultContent(); driver.navigate().refresh();
-						 * Thread.sleep(2000);
-						 */
+						if (arhp.getSuccessMessage().isDisplayed()) {
+							statusMessage = getText(arhp.getSuccessMessage());
+							leadStatusList.add(statusMessage);
+							System.out.println("statusMessage is : "+statusMessage);
+							Thread.sleep(2000);
+							elementClick(arhp.getClosePopup());
+						} else {
+							statusMessage = getText(arhp.getThankuMessage());
+							leadStatusList.add(statusMessage);
+							System.out.println("statusMessage is : "+statusMessage);
+							Thread.sleep(2000);
+							driver.navigate().refresh();
+						}
 						
 					} catch (Exception e) {
 						e.printStackTrace();

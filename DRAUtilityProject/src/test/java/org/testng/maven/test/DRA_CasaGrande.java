@@ -86,8 +86,8 @@ public class DRA_CasaGrande extends BaseClass {
 				// Copy files to specific location
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
-				FileUtils.copyFile(src, new File("C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic Reality\\Reports\\"
-						+ casaGrandeResult.getName() + ".png"));
+				FileUtils.copyFile(src,
+						new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\" + casaGrandeResult.getName() + ".png"));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());
@@ -120,8 +120,8 @@ public class DRA_CasaGrande extends BaseClass {
 		int leadDetailsTotalNoOfRows = leadDetailsWorksheet.getRows();
 		System.out.println("leadDetailsTotalNoOfRows is : " + leadDetailsTotalNoOfRows);
 
-		//outputExcelFile = "C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic Reality\\Reports\\"
-		//		.concat("CasaGrandeReport_" + dateFormat.format(date) + ".xls");
+		// outputExcelFile = "C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic
+		// Reality\\Reports\\".concat("CasaGrandeReport_" + dateFormat.format(date) + ".xls");
 		outputExcelFile = System.getProperty("user.dir").concat("CasaGrandeReport_" + dateFormat.format(date) + ".xls");
 		WritableWorkbook outputFileWorkbook = Workbook.createWorkbook(new File(outputExcelFile));
 		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("CasaGrande", 0);
@@ -173,7 +173,7 @@ public class DRA_CasaGrande extends BaseClass {
 					e1.printStackTrace();
 				}
 
-				for (int rows = 1; rows <= leadDetailsTotalNoOfRows-1; rows++) {
+				for (int rows = 1; rows <= leadDetailsTotalNoOfRows - 1; rows++) {
 
 					leadName = leadDetailsWorksheet.getCell(0, rows).getContents().trim();
 					leadEmailID = leadDetailsWorksheet.getCell(1, rows).getContents().trim();
@@ -213,10 +213,10 @@ public class DRA_CasaGrande extends BaseClass {
 						enterRobotClass();
 						elementClick(chp.getSelectProjectsDropdown());
 						elementClick(ahp.getSelectProjectsTextBox());
-						//elementClick(chp.getCgAstaText());
+						// elementClick(chp.getCgAstaText());
 						inputValue(ahp.getSelectProjectsTextBox(), leadProject);
 						enterRobotClass();
-						//elementClick(chp.getCgFirstCity());
+						// elementClick(chp.getCgFirstCity());
 						inputValue(chp.getCityTextBox(), leadCity);
 						inputValue(chp.getStateTextBox(), leadState);
 						inputValue(chp.getCountryTextBox(), leadCountry);

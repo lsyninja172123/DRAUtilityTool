@@ -99,7 +99,7 @@ public class DRA_Sameera extends BaseClass {
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
 				FileUtils.copyFile(src,
-						new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\Reports\\"
+						new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\"
 								+ radianceResult.getName() + ".png"));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {

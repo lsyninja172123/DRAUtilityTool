@@ -42,8 +42,8 @@ import jxl.write.WritableWorkbook;
 public class DRA_Alliance extends BaseClass {
 
 	public static WebDriver driver;
-	static String companyFilePath = "C:\\Users\\LAKSHMI SRI\\Desktop\\Domestic Reality\\CompanyWebsites.xls";
-	static String leadsFilePath = "C:\\Users\\LAKSHMI SRI\\Desktop\\Domestic Reality\\Leads.xls";
+	static String companyFilePath = "C:\\Users\\DELL\\Desktop\\DRAUtility\\Login Details.xls";
+	static String leadsFilePath = "C:\\Users\\DELL\\Desktop\\DRAUtility\\Contact Details.xls";
 	static String companyName;
 	static String to;
 	static String cc;

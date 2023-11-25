@@ -40,8 +40,8 @@ import jxl.write.WritableWorkbook;
 public class DRA_BharathiHomesNew extends BaseClass {
 
 	public static WebDriver driver;
-	static String companyFilePath = "C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic Reality\\CompanyWebsitesLatest.xls";
-	static String leadsFilePath = "C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic Reality\\Leads.xls";
+	static String companyFilePath = "C:\\Users\\DELL\\Desktop\\DRAUtility\\Login Details.xls";
+	static String leadsFilePath = "C:\\Users\\DELL\\Desktop\\DRAUtility\\Contact Details.xls";
 	static String companyName;
 	static String to;
 	static String cc;
@@ -105,7 +105,7 @@ public class DRA_BharathiHomesNew extends BaseClass {
 				// Copy files to specific location
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
-				FileUtils.copyFile(src, new File("C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic Reality\\Reports\\" + urbanTreeResult.getName() + ".png"));
+				FileUtils.copyFile(src, new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\" + urbanTreeResult.getName() + ".png"));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());
@@ -250,7 +250,7 @@ public class DRA_BharathiHomesNew extends BaseClass {
 				 * Write the output by creating a new excel file
 				 */
 
-				/*int leadNameIndex = 0;
+				int leadNameIndex = 0;
 				int leadEmailIndex = 0;
 				int leadPhoneNumberIndex = 0;
 				int leadStatusIndex = 0;
@@ -279,7 +279,7 @@ public class DRA_BharathiHomesNew extends BaseClass {
 
 				outputFileWorkbook.write();
 				outputFileWorkbook.close();
-				break;*/
+				break;
 			}
 		}
 		
