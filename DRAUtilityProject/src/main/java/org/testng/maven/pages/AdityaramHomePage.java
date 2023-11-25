@@ -35,6 +35,13 @@ public class AdityaramHomePage {
 	@FindBy(xpath="//div[@class='popup_content']//p")
 	private WebElement successMessage;
 	
+	@FindBy(xpath="//div[@class='thankyou']")
+	private WebElement thankuMessage;
+	
+	public WebElement getThankuMessage() {
+		return thankuMessage;
+	}
+
 	@FindBy(xpath="//div[@class='popup_content']//div[@class='close']")
 	private WebElement closePopup;
 	
