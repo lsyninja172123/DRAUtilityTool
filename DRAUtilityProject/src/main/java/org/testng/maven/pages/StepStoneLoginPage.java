@@ -5,11 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AkshayaLoginPage {
+public class StepStoneLoginPage {
 	
 	public WebDriver driver;
 	
-	public AkshayaLoginPage(WebDriver ldriver) {
+	public StepStoneLoginPage(WebDriver ldriver) {
 		this.driver = ldriver;
 		PageFactory.initElements(driver, this);
 	}

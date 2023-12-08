@@ -14,9 +14,16 @@ public class NovaHomePage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(id="menubar_item_Appointments")
+	@FindBy(xpath="(//strong[text()='Enquiries'])[1]")
 	private WebElement enquriesLink;
 	
+	@FindBy(xpath="//strong[text()='Add Enquiry']")
+	private WebElement addEnquiry;
+	
+	public WebElement getAddEnquiry() {
+		return addEnquiry;
+	}
+
 	public WebElement getEnquriesLink() {
 		return enquriesLink;
 	}
@@ -27,21 +34,22 @@ public class NovaHomePage {
 	@FindBy(id="Appointments_editView_fieldName_contactname")
 	private WebElement firstName;
 	
-	@FindBy(id="lead_last_name")
-	private WebElement lastName;
-	
-	@FindBy(xpath="//button[@name='country']")
-	private WebElement countryDropdown;
-	
-	@FindBy(id="lead_phone")
+	@FindBy(id="Appointments_editView_fieldName_mobile")
 	private WebElement mobileNumberTextBox;
 	
-	@FindBy(id="lead_email")
-	private WebElement emailIdTextBox;
-	
-	@FindBy(id="lead_project_id")
+	@FindBy(xpath="//div[@id='sel6IM_chzn']/a/div/b")
 	private WebElement selectProjectDropdown;
 	
+	@FindBy(xpath="(//div[@class='chzn-drop']//div//input[@type='text'])[3]")
+	private WebElement selectProjectTextBox;
+	
+	@FindBy(id="Appointments_editView_fieldName_email")
+	private WebElement emailIdTextBox;
+	
+	public WebElement getSelectProjectTextBox() {
+		return selectProjectTextBox;
+	}
+
 	@FindBy(id="lead_referral_name")
 	private WebElement channalPartnerName;
 	
@@ -51,7 +59,7 @@ public class NovaHomePage {
 	@FindBy(id="lead_referral_phone")
 	private WebElement channalPartnerPhNo;
 	
-	@FindBy(xpath="//input[@value='Save']")
+	@FindBy(xpath="//div[@class='pull-right']//strong[text()='Save']")
 	private WebElement saveButton;
 	
 	@FindBy(xpath="//button[@class='close']//span")
@@ -77,14 +85,6 @@ public class NovaHomePage {
 
 	public WebElement getFirstName() {
 		return firstName;
-	}
-
-	public WebElement getLastName() {
-		return lastName;
-	}
-
-	public WebElement getCountryDropdown() {
-		return countryDropdown;
 	}
 
 	public WebElement getMobileNumberTextBox() {

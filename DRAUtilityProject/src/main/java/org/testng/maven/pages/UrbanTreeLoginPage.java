@@ -23,10 +23,10 @@ public class UrbanTreeLoginPage {
 	@FindBy(xpath="//button[@class='btn btn-danger sbutton']")
 	private WebElement loginButton;
 	
-	@FindBy(xpath="//a[@class='dropdown-toggle nav-link dropdown-user-link']")
+	@FindBy(xpath="//a[@id='menubar_item_right_LBL_CRM_SETTINGS']")
 	private WebElement signoutDropdown;
 	
-	@FindBy(xpath="//a[@href='logout.php']")
+	@FindBy(xpath="//a[text()='Sign Out']")
 	private WebElement signOut;
 	
 	public WebElement getLoginButton() {

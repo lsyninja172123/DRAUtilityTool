@@ -20,12 +20,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.maven.pages.AkshayaHomePage;
-import org.testng.maven.pages.AkshayaLoginPage;
 import org.testng.maven.pages.CasaGrandeHomePage;
 import org.testng.maven.pages.CasaGrandeLoginPage;
 import org.testng.maven.pages.RadianceHomePage;
 import org.testng.maven.pages.RadianceLoginPage;
+import org.testng.maven.pages.StepStoneHomePage;
+import org.testng.maven.pages.StepStoneLoginPage;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -103,11 +103,11 @@ public class DRA_CasaGrande extends BaseClass {
 			e.printStackTrace();
 		}
 		CasaGrandeLoginPage clp = new CasaGrandeLoginPage(driver);
-		AkshayaLoginPage alp = new AkshayaLoginPage(driver);
 		RadianceLoginPage rlp = new RadianceLoginPage(driver);
 		CasaGrandeHomePage chp = new CasaGrandeHomePage(driver);
-		AkshayaHomePage ahp = new AkshayaHomePage(driver);
 		RadianceHomePage rhp = new RadianceHomePage(driver);
+		StepStoneLoginPage sslp = new StepStoneLoginPage(driver);
+		StepStoneHomePage sshp = new StepStoneHomePage(driver);
 
 		File companyDetails = new File(companyFilePath);
 		Workbook companyDetailsWorkbook = Workbook.getWorkbook(companyDetails);
@@ -173,7 +173,7 @@ public class DRA_CasaGrande extends BaseClass {
 					e1.printStackTrace();
 				}
 
-				for (int rows = 1; rows <= leadDetailsTotalNoOfRows - 1; rows++) {
+				for (int rows = 1; rows < leadDetailsTotalNoOfRows; rows++) {
 
 					leadName = leadDetailsWorksheet.getCell(0, rows).getContents().trim();
 					leadEmailID = leadDetailsWorksheet.getCell(1, rows).getContents().trim();
@@ -212,9 +212,9 @@ public class DRA_CasaGrande extends BaseClass {
 						}
 						enterRobotClass();
 						elementClick(chp.getSelectProjectsDropdown());
-						elementClick(ahp.getSelectProjectsTextBox());
+						elementClick(sshp.getSelectProjectsTextBox());
 						// elementClick(chp.getCgAstaText());
-						inputValue(ahp.getSelectProjectsTextBox(), leadProject);
+						inputValue(sshp.getSelectProjectsTextBox(), leadProject);
 						enterRobotClass();
 						// elementClick(chp.getCgFirstCity());
 						inputValue(chp.getCityTextBox(), leadCity);

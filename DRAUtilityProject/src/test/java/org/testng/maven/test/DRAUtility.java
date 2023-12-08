@@ -88,7 +88,7 @@ public class DRAUtility extends JPanel{
 		panel.add(domesticHealthError);
 		addLeadsDetailFile(panel);
 		addcompanyLocationFile(panel);
-		addAkshayaRunButton(panel);
+		addStepsStoneRunButton(panel);
 		addCasaGrandeRunButton(panel);
 		addRadianceRunButton(panel);
 		addAllianceRunButton(panel);
@@ -152,9 +152,9 @@ public class DRAUtility extends JPanel{
 		panel.add(b);
 	}
 
-	private static void addAkshayaRunButton(JPanel panel) {
+	private static void addStepsStoneRunButton(JPanel panel) {
 
-		JButton c = new JButton("Akshaya");
+		JButton c = new JButton("Steps Stone");
 		c.setBounds(40, 225, 120, 25);
 		c.addActionListener(new ActionListener() {
 
@@ -162,7 +162,7 @@ public class DRAUtility extends JPanel{
 
 				try {
 					if (companyFile != null && leadsFile != null) {
-						DRA_Akshaya.akshayaTest(companyFile, leadsFile);
+						DRA_StepsStone.stepStoneTest(companyFile, leadsFile);
 					} else {
 						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
 					}

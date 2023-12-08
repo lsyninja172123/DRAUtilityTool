@@ -21,8 +21,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.maven.pages.AkshayaHomePage;
-import org.testng.maven.pages.AkshayaLoginPage;
 import org.testng.maven.pages.CasaGrandeHomePage;
 import org.testng.maven.pages.CasaGrandeLoginPage;
 import org.testng.maven.pages.RadianceHomePage;
@@ -75,9 +73,9 @@ public class DRA_BharathiHomesNew extends BaseClass {
 
 		driverQuit();
 	}
-	
+
 	public static String getPropertyValue(String key) throws IOException {
-		
+
 		String value = "";
 		try {
 			InputStream fileInputStream = Files.newInputStream(Paths.get("email.properties"));
@@ -91,7 +89,7 @@ public class DRA_BharathiHomesNew extends BaseClass {
 		}
 		return value;
 	}
-	
+
 	@AfterMethod // AfterMethod annotation - This method executes after every test execution
 	public void screenShot(ITestResult urbanTreeResult) {
 		// using ITestResult.FAILURE is equals to result.getStatus then it enter into if
@@ -105,7 +103,8 @@ public class DRA_BharathiHomesNew extends BaseClass {
 				// Copy files to specific location
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
-				FileUtils.copyFile(src, new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\" + urbanTreeResult.getName() + ".png"));
+				FileUtils.copyFile(src,
+						new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\" + urbanTreeResult.getName() + ".png"));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());
@@ -120,7 +119,7 @@ public class DRA_BharathiHomesNew extends BaseClass {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		UrbanTreeLoginPage utlp = new UrbanTreeLoginPage(driver);
 		UrbanTreeHomePage uthp = new UrbanTreeHomePage(driver);
 
@@ -134,9 +133,12 @@ public class DRA_BharathiHomesNew extends BaseClass {
 		Sheet leadDetailsWorksheet = leadDetailsWorkbook.getSheet(0);
 		int leadDetailsTotalNoOfRows = leadDetailsWorksheet.getRows();
 		System.out.println("leadDetailsTotalNoOfRows is : " + leadDetailsTotalNoOfRows);
-		//outputExcelFile ="C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic Reality\\Reports\\".concat("UrbanTreeReport_" + dateFormat.format(date) + ".xls");
-		outputExcelFile =System.getProperty("user.dir").concat("BharathiHomesReport_" + dateFormat.format(date) + ".xls");
-		
+		// outputExcelFile ="C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic
+		// Reality\\Reports\\".concat("UrbanTreeReport_" + dateFormat.format(date) +
+		// ".xls");
+		outputExcelFile = System.getProperty("user.dir")
+				.concat("BharathiHomesReport_" + dateFormat.format(date) + ".xls");
+
 		WritableWorkbook outputFileWorkbook = Workbook.createWorkbook(new File(outputExcelFile));
 		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("BharathiHomes", 0);
 
@@ -188,7 +190,7 @@ public class DRA_BharathiHomesNew extends BaseClass {
 					e.printStackTrace();
 				}
 
-				for (int rows = 1; rows <= leadDetailsTotalNoOfRows-1; rows++) {
+				for (int rows = 1; rows < leadDetailsTotalNoOfRows; rows++) {
 
 					leadName = leadDetailsWorksheet.getCell(0, rows).getContents().trim();
 					leadEmailID = leadDetailsWorksheet.getCell(1, rows).getContents().trim();
@@ -214,31 +216,23 @@ public class DRA_BharathiHomesNew extends BaseClass {
 					leadCommentsList.add(leadComments);
 
 					try {
-						elementClick(uthp.getAddLead());
-						inputValue(uthp.getFirstName(), leadName);
-						elementClick(uthp.getCountryDropDown());
-						inputValue(uthp.getCountrySearchField(), leadCountry);
-						enterRobotClass();
-						elementClick(uthp.getPhoneNumberTextBox());
-						if (leadPhoneNumber.startsWith("5")||leadPhoneNumber.startsWith("1-5")) {
-							System.out.println("Enter valid phone number");
-						} else {
-							inputValue(uthp.getPhoneNumberTextBox(), leadPhoneNumber);
-						}
-						inputValue(uthp.getEmailTextBox(), leadEmailID);
-						enterRobotClass();
-						scrollToBottomPage();
-						elementClick(uthp.getSelectProjectsDropdown());
-						elementClick(uthp.getSelectProjectsTextBox());
-						inputValue(uthp.getSelectProjectsTextBox(), leadProject);
-						enterRobotClass();
-						inputValue(uthp.getCommentTextBox(), leadComments);
-						elementClick(uthp.getSaveButton());
-						/*statusMessage = getText(ahp.getPopupMsg());
-						leadStatusList.add(statusMessage);
-						System.out.println("statusMessage is : "+statusMessage);*/
-						Thread.sleep(2000);
-					} catch (Exception e) {
+						/*
+						 * elementClick(uthp.getAddLead()); inputValue(uthp.getFirstName(), leadName);
+						 * elementClick(uthp.getCountryDropDown());
+						 * inputValue(uthp.getCountrySearchField(), leadCountry); enterRobotClass();
+						 * elementClick(uthp.getPhoneNumberTextBox()); if
+						 * (leadPhoneNumber.startsWith("5")||leadPhoneNumber.startsWith("1-5")) {
+						 * System.out.println("Enter valid phone number"); } else {
+						 * inputValue(uthp.getPhoneNumberTextBox(), leadPhoneNumber); }
+						 * inputValue(uthp.getEmailTextBox(), leadEmailID); enterRobotClass();
+						 * scrollToBottomPage(); elementClick(uthp.getSelectProjectsDropdown());
+						 * elementClick(uthp.getSelectProjectsTextBox());
+						 * inputValue(uthp.getSelectProjectsTextBox(), leadProject); enterRobotClass();
+						 * inputValue(uthp.getCommentTextBox(), leadComments);
+						 * elementClick(uthp.getSaveButton()); statusMessage =
+						 * getText(ahp.getPopupMsg()); leadStatusList.add(statusMessage);
+						 * System.out.println("statusMessage is : "+statusMessage); Thread.sleep(2000);
+						 */} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
@@ -254,7 +248,7 @@ public class DRA_BharathiHomesNew extends BaseClass {
 				int leadEmailIndex = 0;
 				int leadPhoneNumberIndex = 0;
 				int leadStatusIndex = 0;
-				//statusMessage = "Added in Akshaya";
+				// statusMessage = "Added in Akshaya";
 				Label outputFileLeadNameHeader = new Label(0, 0, "Names");
 				outputFileWorksheet.addCell(outputFileLeadNameHeader);
 				Label outputFileEmailIDHeader = new Label(1, 0, "Email ID");
@@ -282,7 +276,7 @@ public class DRA_BharathiHomesNew extends BaseClass {
 				break;
 			}
 		}
-		
+
 		try {
 			browserQuit();
 		} catch (Exception e) {
@@ -290,12 +284,11 @@ public class DRA_BharathiHomesNew extends BaseClass {
 		}
 		return "Execution Finished ....";
 	}
-	
+
 	public static void main(String[] args) throws Exception {
-		
+
 		String result = bharathiHomesTest(companyFilePath, leadsFilePath);
 		System.out.println(result);
-		
-		
+
 	}
 }

@@ -23,12 +23,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.maven.pages.AkshayaHomePage;
-import org.testng.maven.pages.AkshayaLoginPage;
 import org.testng.maven.pages.CasaGrandeHomePage;
 import org.testng.maven.pages.CasaGrandeLoginPage;
 import org.testng.maven.pages.RadianceHomePage;
 import org.testng.maven.pages.RadianceLoginPage;
+import org.testng.maven.pages.StepStoneHomePage;
+import org.testng.maven.pages.StepStoneLoginPage;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -37,7 +37,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 @SuppressWarnings("unused")
-public class DRA_Akshaya extends BaseClass {
+public class DRA_StepsStone extends BaseClass {
 
 	public static WebDriver driver;
 	static String companyFilePath = "C:\\Users\\DELL\\Desktop\\DRAUtility\\Login Details.xls";
@@ -113,7 +113,7 @@ public class DRA_Akshaya extends BaseClass {
 		}
 	}
 
-	public static String akshayaTest(String companyFilePath, String leadsFilePath) throws Exception {
+	public static String stepStoneTest(String companyFilePath, String leadsFilePath) throws Exception {
 
 		try {
 			browserLaunch();
@@ -121,8 +121,8 @@ public class DRA_Akshaya extends BaseClass {
 			e.printStackTrace();
 		}
 		
-		AkshayaLoginPage alp = new AkshayaLoginPage(driver);
-		AkshayaHomePage ahp = new AkshayaHomePage(driver);
+		StepStoneLoginPage sslp = new StepStoneLoginPage(driver);
+		StepStoneHomePage sshp = new StepStoneHomePage(driver);
 
 		File companyDetails = new File(companyFilePath);
 		Workbook companyDetailsWorkbook = Workbook.getWorkbook(companyDetails);
@@ -178,19 +178,19 @@ public class DRA_Akshaya extends BaseClass {
 			passwordList.add(password);
 
 			switch (companyName) {
-			case "AKSHAYA":
+			case "Steps Stone":
 				try {
 					getUrl(websiteUrl);
-				//	inputValue(alp.getUserName(), userName);
-				//	inputValue(alp.getPassWord(), password);
-				//	elementClick(alp.getSignInButton());
+				//	inputValue(sslp.getUserName(), userName);
+				//	inputValue(sslp.getPassWord(), password);
+				//	elementClick(sslp.getSignInButton());
 					Thread.sleep(1000);
-				//	elementClick(ahp.getLeadsLink());
+				//	elementClick(sshp.getLeadsLink());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
-				for (int rows = 1; rows <= leadDetailsTotalNoOfRows-1; rows++) {
+				for (int rows = 1; rows < leadDetailsTotalNoOfRows; rows++) {
 
 					leadName = leadDetailsWorksheet.getCell(0, rows).getContents().trim();
 					leadEmailID = leadDetailsWorksheet.getCell(1, rows).getContents().trim();
@@ -219,18 +219,23 @@ public class DRA_Akshaya extends BaseClass {
 					channelPartnerEmailList.add(channelPartnerEmail);
 
 					try {
-						elementClear(ahp.getReqPhoneNo());
-						inputValue(ahp.getReqPhoneNo(), leadPhoneNumber);
-						elementClick(ahp.getVerifyPhno());
+						elementClear(sshp.getReqPhoneNo());
+						inputValue(sshp.getReqPhoneNo(), leadPhoneNumber);
+						elementClick(sshp.getVerifyPhno());
 						Thread.sleep(3000);
-						if (ahp.getPopupMsgHomePage().getText().contains("Lead doesn't exist")) {
+						if (sshp.getPopupMsgHomePage().getText().contains("Lead doesn't exist")) {
 							
-						elementClick(ahp.getPopUpCloseBtn());
-						inputValue(ahp.getFirstName(), leadName);
-						inputValue(ahp.getEmailTextBox(), leadEmailID);
-						inputValue(ahp.getCpName(), channelPartnerName);
-						elementClick(ahp.getSelectProjectsDropdown());
-						Select s = new Select(ahp.getSelectProjectsDropdown());
+						elementClick(sshp.getPopUpCloseBtn());
+						inputValue(sshp.getFirstName(), leadName);
+						elementClick(sshp.getCpTextBox());
+						inputValue(sshp.getCpSearchField(), "Asset");
+						enterRobotClass();
+						Thread.sleep(2000);
+						elementClick(sshp.getCpName());
+						inputValue(sshp.getCpNumber(), channelPartnerMobileNumber);
+						System.out.println("Channel Partner Phone number entered");
+						elementClick(sshp.getSelectProjectsDropdown());
+						Select s = new Select(sshp.getSelectProjectsDropdown());
 						List<WebElement> projectNames = s.getOptions();
 						for (WebElement webElement : projectNames) {
 							String projectNameList = webElement.getText();
@@ -244,15 +249,15 @@ public class DRA_Akshaya extends BaseClass {
 							}
 						}
 						
-						elementClick(ahp.getSubmitButton());
-						statusMessage = getText(ahp.getSuccessMsg());
+						elementClick(sshp.getSubmitButton());
+						statusMessage = getText(sshp.getSuccessMsg());
 						leadStatusList.add(statusMessage);
 						System.out.println("statusMessage is : "+statusMessage);
 						Thread.sleep(2000);
 						driver.navigate().refresh();
 						Thread.sleep(3000);
 						} else {
-							elementClick(ahp.getPopUpCloseBtn());
+							elementClick(sshp.getPopUpCloseBtn());
 							driver.navigate().refresh();
 						}
 						
@@ -309,7 +314,7 @@ public class DRA_Akshaya extends BaseClass {
 	
 	public static void main(String[] args) throws Exception {
 		
-		String result = akshayaTest(companyFilePath, leadsFilePath);
+		String result = stepStoneTest(companyFilePath, leadsFilePath);
 		System.out.println(result);
 		
 		

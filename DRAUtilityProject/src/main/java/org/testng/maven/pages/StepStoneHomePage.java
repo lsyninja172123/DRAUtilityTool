@@ -5,11 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AkshayaHomePage {
+public class StepStoneHomePage {
 	
 	public WebDriver driver;
 	
-	public AkshayaHomePage(WebDriver hdriver) {
+	public StepStoneHomePage(WebDriver hdriver) {
 		this.driver = hdriver;
 		PageFactory.initElements(driver, this);
 	}
@@ -26,9 +26,30 @@ public class AkshayaHomePage {
 	@FindBy(xpath="//div[@class='popup_close']")
 	private WebElement popUpCloseBtn;
 	
-	@FindBy(name="partner_name")
+	@FindBy(xpath="//li[text()='Asset Build Ventures']")
 	private WebElement cpName;
 	
+	@FindBy(id="custom_cp_number")
+	private WebElement cpNumber;
+	
+	@FindBy(id="select2-custom_cp_name-container")
+	private WebElement cpTextBox;
+	
+	@FindBy(xpath="//input[@class='select2-search__field']")
+	private WebElement cpSearchField;
+	
+	public WebElement getCpTextBox() {
+		return cpTextBox;
+	}
+
+	public WebElement getCpSearchField() {
+		return cpSearchField;
+	}
+
+	public WebElement getCpNumber() {
+		return cpNumber;
+	}
+
 	public WebElement getCpName() {
 		return cpName;
 	}

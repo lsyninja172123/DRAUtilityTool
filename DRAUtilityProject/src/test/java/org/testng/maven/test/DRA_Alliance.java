@@ -23,8 +23,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.maven.pages.AkshayaHomePage;
-import org.testng.maven.pages.AkshayaLoginPage;
 import org.testng.maven.pages.AllianceHomePage;
 import org.testng.maven.pages.AllianceLoginPage;
 import org.testng.maven.pages.CasaGrandeHomePage;
@@ -189,7 +187,7 @@ public class DRA_Alliance extends BaseClass {
 					e.printStackTrace();
 				}
 
-				for (int rows = 1; rows <= leadDetailsTotalNoOfRows-1; rows++) {
+				for (int rows = 1; rows < leadDetailsTotalNoOfRows; rows++) {
 
 					leadName = leadDetailsWorksheet.getCell(0, rows).getContents().trim();
 					leadEmailID = leadDetailsWorksheet.getCell(1, rows).getContents().trim();

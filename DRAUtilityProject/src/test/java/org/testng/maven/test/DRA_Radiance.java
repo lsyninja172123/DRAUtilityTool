@@ -29,8 +29,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.maven.pages.AkshayaHomePage;
-import org.testng.maven.pages.AkshayaLoginPage;
 import org.testng.maven.pages.CasaGrandeHomePage;
 import org.testng.maven.pages.CasaGrandeLoginPage;
 import org.testng.maven.pages.RadianceHomePage;
@@ -187,7 +185,7 @@ public class DRA_Radiance extends BaseClass {
 					e.printStackTrace();
 				}
 
-				for (int rows = 1; rows < leadDetailsTotalNoOfRows - 1; rows++) {
+				for (int rows = 1; rows < leadDetailsTotalNoOfRows; rows++) {
 					System.out.println("Total Lead : " + leadDetailsTotalNoOfRows);
 					leadName = leadDetailsWorksheet.getCell(0, rows).getContents().trim();
 					leadEmailID = leadDetailsWorksheet.getCell(1, rows).getContents().trim();

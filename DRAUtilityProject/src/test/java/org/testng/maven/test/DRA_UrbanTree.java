@@ -13,16 +13,18 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.util.SystemOutLogger;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.maven.pages.AkshayaHomePage;
-import org.testng.maven.pages.AkshayaLoginPage;
 import org.testng.maven.pages.CasaGrandeHomePage;
 import org.testng.maven.pages.CasaGrandeLoginPage;
 import org.testng.maven.pages.RadianceHomePage;
@@ -177,10 +179,12 @@ public class DRA_UrbanTree extends BaseClass {
 
 			switch (companyName) {
 			case "Urban Tree":
+				
+				JavascriptExecutor executor = (JavascriptExecutor) driver;
+				
 				try {
 					getUrl(websiteUrl);
 					inputValue(utlp.getUserName(), userName);
-				//	elementClick(utlp.getLoginButton());
 					inputValue(utlp.getPassWord(), password);
 					elementClick(utlp.getLoginButton());
 					Thread.sleep(1000);
@@ -188,7 +192,7 @@ public class DRA_UrbanTree extends BaseClass {
 					e.printStackTrace();
 				}
 
-				for (int rows = 1; rows <= leadDetailsTotalNoOfRows-1; rows++) {
+				for (int rows = 1; rows < leadDetailsTotalNoOfRows; rows++) {
 
 					leadName = leadDetailsWorksheet.getCell(0, rows).getContents().trim();
 					leadEmailID = leadDetailsWorksheet.getCell(1, rows).getContents().trim();
@@ -214,30 +218,30 @@ public class DRA_UrbanTree extends BaseClass {
 					leadCommentsList.add(leadComments);
 
 					try {
-						elementClick(uthp.getAddLead());
+						
+						WebDriverWait wait = new WebDriverWait(driver, 30);
+						elementClick(uthp.getEnquriesLink());
+						elementClick(uthp.getAddEnquiry());
+						elementClick(uthp.getFirstName());
 						inputValue(uthp.getFirstName(), leadName);
-						elementClick(uthp.getCountryDropDown());
-						inputValue(uthp.getCountrySearchField(), leadCountry);
-						enterRobotClass();
-						elementClick(uthp.getPhoneNumberTextBox());
-						if (leadPhoneNumber.startsWith("5")||leadPhoneNumber.startsWith("1-5")) {
+						if (leadPhoneNumber.startsWith("5") || leadPhoneNumber.startsWith("1-5")) {
 							System.out.println("Enter valid phone number");
-						} else {
-							inputValue(uthp.getPhoneNumberTextBox(), leadPhoneNumber);
+				        }
+						else {
+							inputValue(uthp.getMobileNumberTextBox(), leadPhoneNumber);
+							System.out.println("Phone number entered");
 						}
-						inputValue(uthp.getEmailTextBox(), leadEmailID);
+						inputValue(uthp.getEmailIdTextBox(), leadEmailID);
+					//	executor.executeScript("arguments[0].click();", uthp.getSelectProjectDropdown());
+						elementClick(uthp.getSelectProjectDropdown());
+						Thread.sleep(3000);
+						inputValue(uthp.getSelectProjectTextBox(), leadProject);
 						enterRobotClass();
-						scrollToBottomPage();
-						elementClick(uthp.getSelectProjectsDropdown());
-						elementClick(uthp.getSelectProjectsTextBox());
-						inputValue(uthp.getSelectProjectsTextBox(), leadProject);
-						enterRobotClass();
-						inputValue(uthp.getCommentTextBox(), leadComments);
+						Thread.sleep(1000);
 						elementClick(uthp.getSaveButton());
-						/*statusMessage = getText(ahp.getPopupMsg());
-						leadStatusList.add(statusMessage);
-						System.out.println("statusMessage is : "+statusMessage);*/
+						System.out.println("Save button clicked");
 						Thread.sleep(2000);
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -254,7 +258,7 @@ public class DRA_UrbanTree extends BaseClass {
 				int leadEmailIndex = 0;
 				int leadPhoneNumberIndex = 0;
 				int leadStatusIndex = 0;
-				//statusMessage = "Added in Akshaya";
+				statusMessage = "Added in Urban Tree";
 				Label outputFileLeadNameHeader = new Label(0, 0, "Names");
 				outputFileWorksheet.addCell(outputFileLeadNameHeader);
 				Label outputFileEmailIDHeader = new Label(1, 0, "Email ID");

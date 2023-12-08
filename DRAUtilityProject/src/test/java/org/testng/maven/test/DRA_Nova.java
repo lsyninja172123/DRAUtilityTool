@@ -30,10 +30,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.maven.pages.AkshayaHomePage;
-import org.testng.maven.pages.AkshayaLoginPage;
 import org.testng.maven.pages.CasaGrandeHomePage;
 import org.testng.maven.pages.CasaGrandeLoginPage;
+import org.testng.maven.pages.NovaHomePage;
+import org.testng.maven.pages.NovaLoginPage;
 import org.testng.maven.pages.RadianceHomePage;
 import org.testng.maven.pages.RadianceLoginPage;
 import org.testng.maven.pages.SameeraHomePage;
@@ -115,8 +115,8 @@ public class DRA_Nova extends BaseClass {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		SameeraLoginPage slp = new SameeraLoginPage(driver);
-		SameeraHomePage shp = new SameeraHomePage(driver);
+		NovaLoginPage nlp = new NovaLoginPage(driver);
+		NovaHomePage nhp = new NovaHomePage(driver);
 
 		File companyDetails = new File(companyFilePath);
 		Workbook companyDetailsWorkbook = Workbook.getWorkbook(companyDetails);
@@ -170,7 +170,7 @@ public class DRA_Nova extends BaseClass {
 			passwordList.add(password);
 
 			switch (companyName) {
-			case "Sameera":
+			case "NOVA":
 
 				JavascriptExecutor executor = (JavascriptExecutor) driver;
 
@@ -180,16 +180,16 @@ public class DRA_Nova extends BaseClass {
 					System.out.println("Inside switch userName :" + userName);
 					System.out.println("Inside switch password:" + password);
 
-					inputValue(slp.getUserName(), userName);
-					inputValue(slp.getPassWord(), password);
-					elementClick(slp.getSignInButton());
-					Thread.sleep(10000);
+					inputValue(nlp.getUserName(), userName);
+					inputValue(nlp.getPassWord(), password);
+					elementClick(nlp.getSignInButton());
+					Thread.sleep(3000);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
-				for (int rows = 1; rows <= leadDetailsTotalNoOfRows - 1; rows++) {
+				for (int rows = 1; rows < leadDetailsTotalNoOfRows; rows++) {
 					System.out.println("Total Lead : " + leadDetailsTotalNoOfRows);
 					leadName = leadDetailsWorksheet.getCell(0, rows).getContents().trim();
 					leadEmailID = leadDetailsWorksheet.getCell(1, rows).getContents().trim();
@@ -217,85 +217,47 @@ public class DRA_Nova extends BaseClass {
 					try {
 						
 						WebDriverWait wait = new WebDriverWait(driver, 30);
-						if (shp.getAddLead().isDisplayed()) {
-							executor.executeScript("arguments[0].click();", shp.getAddLead());
-							Thread.sleep(2000);
-						}
+						/*
+						 * if (nhp.getAddLead().isDisplayed()) {
+						 * executor.executeScript("arguments[0].click();", nhp.getAddLead());
+						 * Thread.sleep(2000); }
+						 */
 						
-						elementClear(shp.getFirstName());
-						elementClick(shp.getFirstName());
-						System.out.println("After clicking First name textbox");
-						inputValue(shp.getFirstName(), "Ms");
-						elementClear(shp.getLastName());
-						elementClick(shp.getLastName());
-						inputValue(shp.getLastName(), leadName);
-						System.out.println("Entering Last Name : "+leadName);
-						elementClear(shp.getEmailIdTextBox());
-						inputValue(shp.getEmailIdTextBox(), leadEmailID);
+						elementClick(nhp.getEnquriesLink());
+						elementClick(nhp.getAddEnquiry());
+						elementClick(nhp.getFirstName());
+						inputValue(nhp.getFirstName(), leadName);
 						if (leadPhoneNumber.startsWith("5") || leadPhoneNumber.startsWith("1-5")) {
 							System.out.println("Enter valid phone number");
 				        }
 						else {
-							elementClear(shp.getMobileNumberTextBox());
-							inputValue(shp.getMobileNumberTextBox(), leadPhoneNumber);
+							inputValue(nhp.getMobileNumberTextBox(), leadPhoneNumber);
 							System.out.println("Phone number entered");
 						}
-				        
-						Select s = new Select(shp.getSelectProjectDropdown());
-						List<WebElement> projectNames = s.getOptions();
-						for (WebElement webelement : projectNames) {
-							String projectName = webelement.getText();
-							if (projectName.equalsIgnoreCase(leadProject)) {
-								elementClick(webelement);
-								System.out.println("Selected the project "+webelement.getText());
-							}
-						}
-						inputValue(shp.getChannalPartnerName(), channelPartnerName);
-						System.out.println("Channel Partner Name entered");
-						inputValue(shp.getChannalPartnerEmail(), channelPartnerEmail);
-						System.out.println("Channel Partner Email entered");
-						inputValue(shp.getChannalPartnerPhNo(), channelPartnerMobileNumber);
-						System.out.println("Channel Partner Phone number entered");
-						
-						elementClick(shp.getSaveButton());
+						executor.executeScript("arguments[0].click();", nhp.getSelectProjectDropdown());
+					//	elementClick(nhp.getSelectProjectDropdown());
+						inputValue(nhp.getSelectProjectTextBox(), leadProject);
+						enterRobotClass();
+						inputValue(nhp.getEmailIdTextBox(), leadEmailID);
+						elementClick(nhp.getSaveButton());
 						System.out.println("Save button clicked");
 						Thread.sleep(3000);
 						
-						try {
-							statusMessage = shp.getAlertMessage().getText();
-							if (shp.getAlertMessage().isDisplayed()) {
-								System.out.println(" inside shp.getAlertMessage() if loop");
-								statusMessage = getText(shp.getAlertMessage());
-								leadStatusList.add(statusMessage);
-								System.out.println("statusMessage is : " + statusMessage);
-								elementClick(shp.getCloseBtn());
-							}
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						Thread.sleep(4000);
-						try {
-							statusMessage = shp.getSuccessMsg().getText();
-							if (shp.getSuccessMsg().isDisplayed()) {
-								Thread.sleep(3000);
-								System.out.println(" inside shp.getSuccessMsg() if loop");
-								statusMessage = shp.getSuccessMsg().getText();
-								leadStatusList.add(statusMessage);
-								System.out.println("statusMessage is : " + statusMessage);
-							}
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
+						/*
+						 * try { statusMessage = nhp.getAlertMessage().getText(); if
+						 * (nhp.getAlertMessage().isDisplayed()) {
+						 * System.out.println(" inside nhp.getAlertMessage() if loop"); statusMessage =
+						 * getText(nhp.getAlertMessage()); leadStatusList.add(statusMessage);
+						 * System.out.println("statusMessage is : " + statusMessage);
+						 * elementClick(nhp.getCloseBtn()); } } catch (Exception e) { // TODO
+						 * Auto-generated catch block e.printStackTrace(); }
+						 */
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
-				Thread.sleep(5000);
-				elementClick(slp.getSignoutDropdown());
-				elementClick(slp.getSignOut());
+				elementClick(nlp.getSignoutDropdown());
+				elementClick(nlp.getSignOut());
 				Thread.sleep(2000);
 
 				/*
@@ -306,7 +268,7 @@ public class DRA_Nova extends BaseClass {
 				int leadEmailIndex = 0;
 				int leadPhoneNumberIndex = 0;
 				int leadStatusIndex = 0;
-				// statusMessage = "Added in Radiance";
+				statusMessage = "Added in Nova";
 				Label outputFileLeadNameHeader = new Label(0, 0, "Names");
 				outputFileWorksheet.addCell(outputFileLeadNameHeader);
 				Label outputFileEmailIDHeader = new Label(1, 0, "Email ID");

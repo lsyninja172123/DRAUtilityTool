@@ -14,90 +14,84 @@ public class UrbanTreeHomePage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(xpath="//span[text()='ADD LEAD']")
-	private WebElement addLead;
+	@FindBy(xpath="(//strong[text()='Enquiries'])[1]")
+	private WebElement enquriesLink;
 	
-	@FindBy(name="fname")
+	@FindBy(xpath="//strong[text()='Add Enquiry']")
+	private WebElement addEnquiry;
+	
+	public WebElement getAddEnquiry() {
+		return addEnquiry;
+	}
+
+	public WebElement getEnquriesLink() {
+		return enquriesLink;
+	}
+
+	@FindBy(id="Appointments_editView_fieldName_contactname")
 	private WebElement firstName;
 	
-	@FindBy(name="lname")
-	private WebElement lastName;
+	@FindBy(id="Appointments_editView_fieldName_mobile")
+	private WebElement mobileNumberTextBox;
 	
-	@FindBy(id="select2-country-container")
-	private WebElement countryDropDown;
 	
-	@FindBy(xpath="//input[@class='select2-search__field']")
-	private WebElement countrySearchField;
+//	(//a[@class='chzn-single']/span[text()='Select an Option'])[1]
+	@FindBy(xpath="//table[@class='table table-bordered blockContainer showInlineTable equalSplit']/tbody/tr[4]/td[4]/div/span/div/a/div")
+	private WebElement selectProjectDropdown;
 	
-	@FindBy(id="emailId")
-	private WebElement emailTextBox;
 	
-	@FindBy(id="mobileNo")
-	private WebElement phoneNumberTextBox;
+	@FindBy(xpath="(//div[@class='chzn-drop']//div//input[@type='text'])[3]")
+	private WebElement selectProjectTextBox;
 	
-	@FindBy(xpath="(//span[@class='select2-selection__arrow'])[2]")
-	private WebElement selectProjectsDropdown;
+	@FindBy(id="Appointments_editView_fieldName_email")
+	private WebElement emailIdTextBox;
 	
-	@FindBy(xpath="//input[@class='select2-search__field']")
-	private WebElement selectProjectsTextBox;
-	
-	@FindBy(name="comments")
-	private WebElement commentTextBox;
-	
-	@FindBy(name="submit")
+	public WebElement getSelectProjectTextBox() {
+		return selectProjectTextBox;
+	}
+
+	@FindBy(xpath="(//button[@class='btn btn-success'])[1]")
 	private WebElement saveButton;
 	
-	@FindBy(name="ftype")
-	private WebElement flatDropDown;
+	@FindBy(xpath="//button[@class='close']//span")
+	private WebElement closeBtn;
 	
-	public WebElement getCountryDropDown() {
-		return countryDropDown;
+	@FindBy(xpath="//div[@class='mb-3 alert alert-danger']//ul//li")
+	private WebElement alertMessage;
+	
+	@FindBy(xpath="//div[@class='noty_body']")
+	private WebElement successMsg;
+
+	public WebElement getSuccessMsg() {
+		return successMsg;
 	}
 
-	public WebElement getCountrySearchField() {
-		return countrySearchField;
-	}
-
-	public WebElement getFlatDropDown() {
-		return flatDropDown;
-	}
-	
-	public WebElement getAddLead() {
-		return addLead;
+	public WebElement getAlertMessage() {
+		return alertMessage;
 	}
 
 	public WebElement getFirstName() {
 		return firstName;
 	}
 
-	public WebElement getLastName() {
-		return lastName;
+	public WebElement getMobileNumberTextBox() {
+		return mobileNumberTextBox;
 	}
 
-	public WebElement getEmailTextBox() {
-		return emailTextBox;
+	public WebElement getEmailIdTextBox() {
+		return emailIdTextBox;
 	}
 
-	public WebElement getPhoneNumberTextBox() {
-		return phoneNumberTextBox;
-	}
-
-	public WebElement getSelectProjectsDropdown() {
-		return selectProjectsDropdown;
-	}
-
-	public WebElement getCommentTextBox() {
-		return commentTextBox;
+	public WebElement getSelectProjectDropdown() {
+		return selectProjectDropdown;
 	}
 
 	public WebElement getSaveButton() {
 		return saveButton;
 	}
-	
-	public WebElement getSelectProjectsTextBox() {
-		return selectProjectsTextBox;
-	}
 
-	
+	public WebElement getCloseBtn() {
+		return closeBtn;
+	}
 	
 }
