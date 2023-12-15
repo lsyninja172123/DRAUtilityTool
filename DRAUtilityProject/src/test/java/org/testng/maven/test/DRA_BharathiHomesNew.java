@@ -91,10 +91,10 @@ public class DRA_BharathiHomesNew extends BaseClass {
 	}
 
 	@AfterMethod // AfterMethod annotation - This method executes after every test execution
-	public void screenShot(ITestResult urbanTreeResult) {
+	public void screenShot(ITestResult bharathiHomesResult) {
 		// using ITestResult.FAILURE is equals to result.getStatus then it enter into if
 		// condition
-		if (ITestResult.FAILURE == urbanTreeResult.getStatus()) {
+		if (ITestResult.FAILURE == bharathiHomesResult.getStatus()) {
 			try {
 				// To create reference of TakesScreenshot
 				TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -104,7 +104,7 @@ public class DRA_BharathiHomesNew extends BaseClass {
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
 				FileUtils.copyFile(src,
-						new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\" + urbanTreeResult.getName() + ".png"));
+						new File(System.getProperty("user.dir").concat(bharathiHomesResult.getName() + ".png")));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());

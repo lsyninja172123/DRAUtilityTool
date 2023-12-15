@@ -84,10 +84,10 @@ public class DRA_Sameera extends BaseClass {
 	}
 
 	@AfterMethod // AfterMethod annotation - This method executes after every test execution
-	public void screenShot(ITestResult radianceResult) {
+	public void screenShot(ITestResult sameeraResult) {
 		// using ITestResult.FAILURE is equals to result.getStatus then it enter into if
 		// condition
-		if (ITestResult.FAILURE == radianceResult.getStatus()) {
+		if (ITestResult.FAILURE == sameeraResult.getStatus()) {
 			try {
 				// To create reference of TakesScreenshot
 				TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -97,8 +97,7 @@ public class DRA_Sameera extends BaseClass {
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
 				FileUtils.copyFile(src,
-						new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\"
-								+ radianceResult.getName() + ".png"));
+						new File(System.getProperty("user.dir").concat(sameeraResult.getName() + ".png")));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());

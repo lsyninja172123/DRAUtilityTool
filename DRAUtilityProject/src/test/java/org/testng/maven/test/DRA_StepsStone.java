@@ -93,10 +93,10 @@ public class DRA_StepsStone extends BaseClass {
 	}
 	
 	@AfterMethod // AfterMethod annotation - This method executes after every test execution
-	public void screenShot(ITestResult akshayaResult) {
+	public void screenShot(ITestResult stepStoneResult) {
 		// using ITestResult.FAILURE is equals to result.getStatus then it enter into if
 		// condition
-		if (ITestResult.FAILURE == akshayaResult.getStatus()) {
+		if (ITestResult.FAILURE == stepStoneResult.getStatus()) {
 			try {
 				// To create reference of TakesScreenshot
 				TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -105,7 +105,7 @@ public class DRA_StepsStone extends BaseClass {
 				// Copy files to specific location
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
-				FileUtils.copyFile(src, new File("C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic Reality\\Reports\\" + akshayaResult.getName() + ".png"));
+				FileUtils.copyFile(src, new File(System.getProperty("user.dir").concat(stepStoneResult.getName() + ".png")));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());
@@ -135,10 +135,10 @@ public class DRA_StepsStone extends BaseClass {
 		int leadDetailsTotalNoOfRows = leadDetailsWorksheet.getRows();
 		System.out.println("leadDetailsTotalNoOfRows is : " + leadDetailsTotalNoOfRows);
 		//outputExcelFile ="C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\DRAUtility\\Domestic Reality\\Reports\\".concat("AkshayaReport_" + dateFormat.format(date) + ".xls");
-		outputExcelFile =System.getProperty("user.dir").concat("AkshayaReport_" + dateFormat.format(date) + ".xls");
+		outputExcelFile =System.getProperty("user.dir").concat("StepStoneReport_" + dateFormat.format(date) + ".xls");
 		
 		WritableWorkbook outputFileWorkbook = Workbook.createWorkbook(new File(outputExcelFile));
-		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("Akshaya", 0);
+		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("StepStone", 0);
 
 		List<String> companyNameList = new ArrayList<String>();
 		List<String> toList = new ArrayList<String>();
@@ -223,9 +223,9 @@ public class DRA_StepsStone extends BaseClass {
 						inputValue(sshp.getReqPhoneNo(), leadPhoneNumber);
 						elementClick(sshp.getVerifyPhno());
 						Thread.sleep(3000);
-						if (sshp.getPopupMsgHomePage().getText().contains("Lead doesn't exist")) {
+					//	if (sshp.getPopupMsgHomePage().getText().contains("Lead doesn't exist")) {
 							
-						elementClick(sshp.getPopUpCloseBtn());
+					//	elementClick(sshp.getPopUpCloseBtn());
 						inputValue(sshp.getFirstName(), leadName);
 						elementClick(sshp.getCpTextBox());
 						inputValue(sshp.getCpSearchField(), "Asset");
@@ -248,7 +248,7 @@ public class DRA_StepsStone extends BaseClass {
 								System.out.println("Project Name is invalid");
 							}
 						}
-						
+						inputValue(sshp.getCommentTextBox(), leadComments);
 						elementClick(sshp.getSubmitButton());
 						statusMessage = getText(sshp.getSuccessMsg());
 						leadStatusList.add(statusMessage);
@@ -256,10 +256,10 @@ public class DRA_StepsStone extends BaseClass {
 						Thread.sleep(2000);
 						driver.navigate().refresh();
 						Thread.sleep(3000);
-						} else {
-							elementClick(sshp.getPopUpCloseBtn());
-							driver.navigate().refresh();
-						}
+					//	} else {
+					//		elementClick(sshp.getPopUpCloseBtn());
+					//		driver.navigate().refresh();
+					//	}
 						
 						
 					} catch (Exception e) {

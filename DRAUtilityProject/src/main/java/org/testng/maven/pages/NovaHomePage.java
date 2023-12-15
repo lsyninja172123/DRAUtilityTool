@@ -37,7 +37,7 @@ public class NovaHomePage {
 	@FindBy(id="Appointments_editView_fieldName_mobile")
 	private WebElement mobileNumberTextBox;
 	
-	@FindBy(xpath="//div[@id='sel6IM_chzn']/a/div/b")
+	@FindBy(xpath="//table[@class='table table-bordered blockContainer showInlineTable equalSplit']/tbody/tr[2]/td[2]/div/span/div/a/div")
 	private WebElement selectProjectDropdown;
 	
 	@FindBy(xpath="(//div[@class='chzn-drop']//div//input[@type='text'])[3]")
@@ -50,16 +50,7 @@ public class NovaHomePage {
 		return selectProjectTextBox;
 	}
 
-	@FindBy(id="lead_referral_name")
-	private WebElement channalPartnerName;
-	
-	@FindBy(id="lead_referral_email")
-	private WebElement channalPartnerEmail;
-	
-	@FindBy(id="lead_referral_phone")
-	private WebElement channalPartnerPhNo;
-	
-	@FindBy(xpath="//div[@class='pull-right']//strong[text()='Save']")
+	@FindBy(xpath="(//button[@class='btn btn-success'])[1]")
 	private WebElement saveButton;
 	
 	@FindBy(xpath="//button[@class='close']//span")
@@ -101,18 +92,6 @@ public class NovaHomePage {
 
 	public WebElement getSaveButton() {
 		return saveButton;
-	}
-
-	public WebElement getChannalPartnerName() {
-		return channalPartnerName;
-	}
-
-	public WebElement getChannalPartnerEmail() {
-		return channalPartnerEmail;
-	}
-
-	public WebElement getChannalPartnerPhNo() {
-		return channalPartnerPhNo;
 	}
 
 	public WebElement getCloseBtn() {

@@ -96,10 +96,10 @@ public class DRA_Adityaram extends BaseClass {
 	}
 	
 	@AfterMethod // AfterMethod annotation - This method executes after every test execution
-	public void screenShot(ITestResult tvsEmeraldResult) {
+	public void screenShot(ITestResult adityaramResult) {
 		// using ITestResult.FAILURE is equals to result.getStatus then it enter into if
 		// condition
-		if (ITestResult.FAILURE == tvsEmeraldResult.getStatus()) {
+		if (ITestResult.FAILURE == adityaramResult.getStatus()) {
 			try {
 				// To create reference of TakesScreenshot
 				TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -108,7 +108,7 @@ public class DRA_Adityaram extends BaseClass {
 				// Copy files to specific location
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
-				FileUtils.copyFile(src, new File("C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic Reality\\Reports\\" + tvsEmeraldResult.getName() + ".png"));
+				FileUtils.copyFile(src, new File(System.getProperty("user.dir").concat(adityaramResult.getName() + ".png")));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());

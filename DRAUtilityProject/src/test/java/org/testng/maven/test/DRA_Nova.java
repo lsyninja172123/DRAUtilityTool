@@ -86,10 +86,10 @@ public class DRA_Nova extends BaseClass {
 	}
 
 	@AfterMethod // AfterMethod annotation - This method executes after every test execution
-	public void screenShot(ITestResult radianceResult) {
+	public void screenShot(ITestResult novaResult) {
 		// using ITestResult.FAILURE is equals to result.getStatus then it enter into if
 		// condition
-		if (ITestResult.FAILURE == radianceResult.getStatus()) {
+		if (ITestResult.FAILURE == novaResult.getStatus()) {
 			try {
 				// To create reference of TakesScreenshot
 				TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -99,8 +99,7 @@ public class DRA_Nova extends BaseClass {
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
 				FileUtils.copyFile(src,
-						new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\Reports\\"
-								+ radianceResult.getName() + ".png"));
+						new File(System.getProperty("user.dir").concat(novaResult.getName() + ".png")));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());
@@ -131,9 +130,9 @@ public class DRA_Nova extends BaseClass {
 		// outputExcelFile = "C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic
 		// Reality\\Reports\\"
 		// .concat("RadianceReport_" + dateFormat.format(date) + ".xls");
-		outputExcelFile = System.getProperty("user.dir").concat("SameeraReport_" + dateFormat.format(date) + ".xls");
+		outputExcelFile = System.getProperty("user.dir").concat("NovaReport_" + dateFormat.format(date) + ".xls");
 		WritableWorkbook outputFileWorkbook = Workbook.createWorkbook(new File(outputExcelFile));
-		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("Sameera", 0);
+		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("Nova", 0);
 
 		List<String> companyNameList = new ArrayList<String>();
 		List<String> toList = new ArrayList<String>();
@@ -217,12 +216,6 @@ public class DRA_Nova extends BaseClass {
 					try {
 						
 						WebDriverWait wait = new WebDriverWait(driver, 30);
-						/*
-						 * if (nhp.getAddLead().isDisplayed()) {
-						 * executor.executeScript("arguments[0].click();", nhp.getAddLead());
-						 * Thread.sleep(2000); }
-						 */
-						
 						elementClick(nhp.getEnquriesLink());
 						elementClick(nhp.getAddEnquiry());
 						elementClick(nhp.getFirstName());
@@ -234,24 +227,15 @@ public class DRA_Nova extends BaseClass {
 							inputValue(nhp.getMobileNumberTextBox(), leadPhoneNumber);
 							System.out.println("Phone number entered");
 						}
-						executor.executeScript("arguments[0].click();", nhp.getSelectProjectDropdown());
-					//	elementClick(nhp.getSelectProjectDropdown());
+						elementClick(nhp.getSelectProjectDropdown());
+						Thread.sleep(2000);
 						inputValue(nhp.getSelectProjectTextBox(), leadProject);
 						enterRobotClass();
+						Thread.sleep(1000);
 						inputValue(nhp.getEmailIdTextBox(), leadEmailID);
 						elementClick(nhp.getSaveButton());
 						System.out.println("Save button clicked");
-						Thread.sleep(3000);
-						
-						/*
-						 * try { statusMessage = nhp.getAlertMessage().getText(); if
-						 * (nhp.getAlertMessage().isDisplayed()) {
-						 * System.out.println(" inside nhp.getAlertMessage() if loop"); statusMessage =
-						 * getText(nhp.getAlertMessage()); leadStatusList.add(statusMessage);
-						 * System.out.println("statusMessage is : " + statusMessage);
-						 * elementClick(nhp.getCloseBtn()); } } catch (Exception e) { // TODO
-						 * Auto-generated catch block e.printStackTrace(); }
-						 */
+						Thread.sleep(2000);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

@@ -107,7 +107,7 @@ public class DRA_UrbanTree extends BaseClass {
 				// Copy files to specific location
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
-				FileUtils.copyFile(src, new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\" + urbanTreeResult.getName() + ".png"));
+				FileUtils.copyFile(src, new File(System.getProperty("user.dir").concat(urbanTreeResult.getName() + ".png")));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());

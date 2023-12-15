@@ -94,8 +94,7 @@ public class DRA_Radiance extends BaseClass {
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
 				FileUtils.copyFile(src,
-						new File("C:\\Users\\DELL\\Desktop\\DRAUtility\\"
-								+ radianceResult.getName() + ".png"));
+						new File(System.getProperty("user.dir").concat(radianceResult.getName() + ".png")));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());

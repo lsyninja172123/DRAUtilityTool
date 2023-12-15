@@ -334,7 +334,7 @@ public class BaseClass {
 		}
 	}
 	
-	public static void waitforAlertisPresent() throws Exception {
+	public static boolean waitforAlertisPresent() throws Exception {
 
 		try {
 			WebDriverWait wb = new WebDriverWait(driver, 30);
@@ -343,6 +343,7 @@ public class BaseClass {
 			e.printStackTrace();
 			throw new Exception();
 		}
+		return false;
 	}
 	
 	public static void simpleAlert() throws Exception {
@@ -429,6 +430,14 @@ public class BaseClass {
 		Robot r = new Robot();
 		r.keyPress(KeyEvent.VK_ENTER);
 		r.keyRelease(KeyEvent.VK_ENTER);
+		
+	}
+	
+	public static void pressDownArrow() throws Exception {
+
+		Robot r = new Robot();
+		r.keyPress(KeyEvent.VK_DOWN);
+		r.keyRelease(KeyEvent.VK_DOWN);
 		
 	}
 

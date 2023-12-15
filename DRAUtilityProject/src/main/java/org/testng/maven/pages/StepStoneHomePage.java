@@ -101,25 +101,7 @@ public class StepStoneHomePage {
 		return selectProjectsTextBox;
 	}
 
-	@FindBy(xpath="//*[@id=\"select2-drop\"]/ul/li[4]")
-	private WebElement metropolisText;
-	
-	@FindBy(xpath="//*[@id=\"select2-drop\"]/ul/li[3]")
-	private WebElement todayText;
-	
-	@FindBy(xpath="//*[@id=\"select2-drop\"]/ul/li[2]")
-	private WebElement republicText;
-	
-	@FindBy(id="lead_city")
-	private WebElement cityTextBox;
-	
-	@FindBy(id="lead_state")
-	private WebElement stateTextBox;
-	
-	@FindBy(id="lead_country")
-	private WebElement countryTextBox;
-	
-	@FindBy(id="lead_comment")
+	@FindBy(id="comments")
 	private WebElement commentTextBox;
 	
 	@FindBy(xpath="//button[@class='btn free-crm-submit]")
@@ -128,7 +110,7 @@ public class StepStoneHomePage {
 	@FindBy(xpath="//button[@type='submit']")
 	private WebElement submitButton;
 	
-	@FindBy(xpath="//p[text()='Thank you for visiting with us. ']")
+	@FindBy(xpath="//span[@id='lead_id']")
 	private WebElement successMsg;
 	
 	public WebElement getSuccessMsg() {
@@ -139,29 +121,6 @@ public class StepStoneHomePage {
 		return popupMsg;
 	}
 	
-	public WebElement getRepublicText() {
-		return republicText;
-	}
-	
-	public WebElement getCityTextBox() {
-		return cityTextBox;
-	}
-
-	public WebElement getStateTextBox() {
-		return stateTextBox;
-	}
-
-	public WebElement getCountryTextBox() {
-		return countryTextBox;
-	}
-
-	public WebElement getMetropolisText() {
-		return metropolisText;
-	}
-
-	public WebElement getTodayText() {
-		return todayText;
-	}
 	
 	public WebElement getLeadsLink() {
 		return leadsLink;
