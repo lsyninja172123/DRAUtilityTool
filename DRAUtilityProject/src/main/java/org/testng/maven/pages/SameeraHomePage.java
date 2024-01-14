@@ -17,6 +17,9 @@ public class SameeraHomePage {
 	@FindBy(xpath="//a[text()='Add Lead']")
 	private WebElement addLead;
 	
+	@FindBy(xpath="//a[text()='Lead Activities']")
+	private WebElement leadActivities;
+	
 	@FindBy(id="lead_first_name")
 	private WebElement firstName;
 	
@@ -110,6 +113,10 @@ public class SameeraHomePage {
 
 	public WebElement getCloseBtn() {
 		return closeBtn;
+	}
+
+	public WebElement getLeadActivities() {
+		return leadActivities;
 	}
 	
 }

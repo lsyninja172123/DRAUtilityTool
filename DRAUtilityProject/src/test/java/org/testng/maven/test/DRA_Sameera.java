@@ -214,6 +214,10 @@ public class DRA_Sameera extends BaseClass {
 					try {
 						
 						WebDriverWait wait = new WebDriverWait(driver, 30);
+						
+						elementClick(shp.getLeadActivities());
+						
+						
 						if (shp.getAddLead().isDisplayed()) {
 							executor.executeScript("arguments[0].click();", shp.getAddLead());
 							Thread.sleep(2000);

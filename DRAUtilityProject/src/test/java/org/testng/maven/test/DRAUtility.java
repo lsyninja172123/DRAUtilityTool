@@ -96,9 +96,10 @@ public class DRAUtility extends JPanel{
 		addUrbanTreeRunButton(panel);
 		addAdityaramRunButton(panel);
 		addBharathiHomesRunButton(panel);
+		addVivaHousingRunButton(panel);
 		addSameeraRunButton(panel);
 		addNovaRunButton(panel);
-		addLifeStyleRunButton(panel);
+	//	addLifeStyleRunButton(panel);
 		addTraventureRunButton(panel);
 		
 		return panel;
@@ -372,9 +373,9 @@ public class DRAUtility extends JPanel{
 		panel.add(c);
 	}
 	
-	private static void addLifeStyleRunButton(JPanel panel) {
+	private static void addVivaHousingRunButton(JPanel panel) {
 
-		JButton c = new JButton("LifeStyle");
+		JButton c = new JButton("VivaHousing");
 		c.setBounds(340, 325, 120, 25);
 		c.addActionListener(new ActionListener() {
 
@@ -382,7 +383,7 @@ public class DRAUtility extends JPanel{
 
 				try {
 					if (companyFile != null && leadsFile != null) {
-					//	DRA_BharathiHomesNew.bharathiHomesTest(companyFile, leadsFile);
+						DRA_VivaHousing.vivaHousingTest(companyFile, leadsFile);
 					} else {
 						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
 					}
@@ -415,7 +416,7 @@ public class DRAUtility extends JPanel{
 		});
 		panel.add(c);
 	}
-
+	
 	private static void showError(JLabel label, String string) {
 
 		label.setText(string);
