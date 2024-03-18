@@ -433,6 +433,14 @@ public class BaseClass {
 		
 	}
 	
+	public static void tabRobotClass() throws Exception {
+
+		Robot r = new Robot();
+		r.keyPress(KeyEvent.VK_TAB);
+		r.keyRelease(KeyEvent.VK_TAB);
+		
+	}
+	
 	public static void pressDownArrow() throws Exception {
 
 		Robot r = new Robot();

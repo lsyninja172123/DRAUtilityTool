@@ -1,7 +1,5 @@
 package org.testng.maven.test;
 
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,22 +8,13 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -35,6 +24,8 @@ import org.testng.maven.pages.CasaGrandeHomePage;
 import org.testng.maven.pages.CasaGrandeLoginPage;
 import org.testng.maven.pages.RadianceHomePage;
 import org.testng.maven.pages.RadianceLoginPage;
+import org.testng.maven.pages.StepStoneHomePage;
+import org.testng.maven.pages.StepStoneLoginPage;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -43,7 +34,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 @SuppressWarnings("unused")
-public class DRA_Radiance extends BaseClass {
+public class DRA_DRAHomes extends BaseClass {
 
 	public static WebDriver driver;
 	static String companyFilePath = "C:\\Users\\DELL\\Desktop\\DRAUtility\\Login Details.xls";
@@ -83,10 +74,10 @@ public class DRA_Radiance extends BaseClass {
 	}
 
 	@AfterMethod // AfterMethod annotation - This method executes after every test execution
-	public void screenShot(ITestResult radianceResult) {
+	public void screenShot(ITestResult draHomesResult) {
 		// using ITestResult.FAILURE is equals to result.getStatus then it enter into if
 		// condition
-		if (ITestResult.FAILURE == radianceResult.getStatus()) {
+		if (ITestResult.FAILURE == draHomesResult.getStatus()) {
 			try {
 				// To create reference of TakesScreenshot
 				TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -96,7 +87,7 @@ public class DRA_Radiance extends BaseClass {
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
 				FileUtils.copyFile(src,
-						new File(System.getProperty("user.dir").concat(radianceResult.getName() + ".png")));
+						new File(System.getProperty("user.dir").concat(draHomesResult.getName() + ".png")));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());
@@ -104,15 +95,19 @@ public class DRA_Radiance extends BaseClass {
 		}
 	}
 
-	public static String radianceTest(String companyFilePath, String leadsFilePath) throws Exception {
+	public static String draHomesTest(String companyFilePath, String leadsFilePath) throws Exception {
 
 		try {
 			browserLaunch();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		CasaGrandeLoginPage clp = new CasaGrandeLoginPage(driver);
 		RadianceLoginPage rlp = new RadianceLoginPage(driver);
+		CasaGrandeHomePage chp = new CasaGrandeHomePage(driver);
 		RadianceHomePage rhp = new RadianceHomePage(driver);
+		StepStoneLoginPage sslp = new StepStoneLoginPage(driver);
+		StepStoneHomePage sshp = new StepStoneHomePage(driver);
 
 		File companyDetails = new File(companyFilePath);
 		Workbook companyDetailsWorkbook = Workbook.getWorkbook(companyDetails);
@@ -123,13 +118,13 @@ public class DRA_Radiance extends BaseClass {
 		Workbook leadDetailsWorkbook = Workbook.getWorkbook(leadDetails);
 		Sheet leadDetailsWorksheet = leadDetailsWorkbook.getSheet(0);
 		int leadDetailsTotalNoOfRows = leadDetailsWorksheet.getRows();
+		System.out.println("leadDetailsTotalNoOfRows is : " + leadDetailsTotalNoOfRows);
 
 		// outputExcelFile = "C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic
-		// Reality\\Reports\\"
-		// .concat("RadianceReport_" + dateFormat.format(date) + ".xls");
-		outputExcelFile = System.getProperty("user.dir").concat("RadianceReport_" + dateFormat.format(date) + ".xls");
+		// Reality\\Reports\\".concat("CasaGrandeReport_" + dateFormat.format(date) + ".xls");
+		outputExcelFile = System.getProperty("user.dir").concat("DRAHomesResult_" + dateFormat.format(date) + ".xls");
 		WritableWorkbook outputFileWorkbook = Workbook.createWorkbook(new File(outputExcelFile));
-		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("Radiance", 0);
+		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("DRAHomes", 0);
 
 		List<String> companyNameList = new ArrayList<String>();
 		List<String> toList = new ArrayList<String>();
@@ -166,28 +161,20 @@ public class DRA_Radiance extends BaseClass {
 			passwordList.add(password);
 
 			switch (companyName) {
-			case "RADIANCE":
-
-				JavascriptExecutor executor = (JavascriptExecutor) driver;
-
+			case "DRA Homes":
 				try {
-					System.out.println("Inside switch url:" + websiteUrl);
 					getUrl(websiteUrl);
-					System.out.println("Inside switch userName :" + userName);
-					System.out.println("Inside switch password:" + password);
-
-					inputValue(rlp.getUserName(), userName);
-					inputValue(rlp.getPassWord(), password);
-					elementClick(rlp.getSignInButton());
-					Thread.sleep(10000);
-					executor.executeScript("arguments[0].click();", rhp.getAddLead());
-					Thread.sleep(2000);
-				} catch (Exception e) {
-					e.printStackTrace();
+					inputValue(clp.getUserName(), userName);
+					inputValue(clp.getPassWord(), password);
+					elementClick(clp.getSignInButton());
+					Thread.sleep(1000);
+					elementClick(chp.getLeadsLink());
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}
 
 				for (int rows = 1; rows < leadDetailsTotalNoOfRows; rows++) {
-					System.out.println("Total Lead : " + leadDetailsTotalNoOfRows);
+
 					leadName = leadDetailsWorksheet.getCell(0, rows).getContents().trim();
 					leadEmailID = leadDetailsWorksheet.getCell(1, rows).getContents().trim();
 					leadPhoneNumber = leadDetailsWorksheet.getCell(2, rows).getContents().trim();
@@ -212,53 +199,45 @@ public class DRA_Radiance extends BaseClass {
 					leadCommentsList.add(leadComments);
 
 					try {
-
-						elementClick(rhp.getNewButton());
-						Thread.sleep(5000);
-						WebDriverWait wait = new WebDriverWait(driver, 30);
-						wait.until(ExpectedConditions.visibilityOfElementLocated(
-								By.xpath("(//label[@class='slds-form-element__label'])[1]")));
-
-						System.out.println("Fetching the web element for modal container");
-						WebElement modalContainer = driver
-								.findElement(By.xpath("(//label[@class='slds-form-element__label'])[1]"));
-						System.out.println(modalContainer.getText());
-						Assert.assertEquals(modalContainer.getText(), "* Name");
-
-						elementClick(rhp.getFirstName());
-						System.out.println("After clicking First name textbox");
-						inputValue(rhp.getFirstName(), leadName);
-						elementClick(rhp.getSelectIntrestedProject());
-						Thread.sleep(1000);
-						List<WebElement> projectList = rhp.getProjectList();
-						for (WebElement webElement : projectList) {
-							System.out.println("Project List : " + webElement.getText());
-							if (webElement.getText().equalsIgnoreCase(leadProject)) {
-								System.out.println("Inside if loop : " + leadProject + " checking with project list");
-								JavascriptExecutor js = (JavascriptExecutor) driver;
-								js.executeScript("arguments[0].click();", webElement);
-							}
+						elementClick(chp.getAddLead());
+						inputValue(chp.getFirstName(), leadName);
+						elementClick(chp.getEmailDropdown());
+						if (!leadEmailID.isEmpty()) {
+							inputValue(chp.getEmailTextBox(), leadEmailID);
+							enterRobotClass();
+						} else {
+							tabRobotClass();
 						}
-
-						inputValue(rhp.getEmailIdTextBox(), leadEmailID);
+						elementClick(chp.getPhoneNumberTextBox());
 						if (leadPhoneNumber.startsWith("5") || leadPhoneNumber.startsWith("1-5")) {
 							System.out.println("Enter valid phone number");
 						} else {
-							inputValue(rhp.getMobileNumberTextBox(), leadPhoneNumber);
+							inputValue(chp.getPhoneNumberTextBox(), leadPhoneNumber);
 						}
-
-						elementClick(rhp.getSaveButton());
-						wait.until(ExpectedConditions.visibilityOf(rhp.getAlertMessage()));
-						statusMessage = getText(rhp.getAlertMessage());
+						enterRobotClass();
+						elementClick(chp.getSelectProjectsDropdown());
+						elementClick(sshp.getSelectProjectsTextBox());
+						// elementClick(chp.getCgAstaText());
+						inputValue(sshp.getSelectProjectsTextBox(), leadProject);
+						enterRobotClass();
+						// elementClick(chp.getCgFirstCity());
+						inputValue(chp.getCityTextBox(), leadCity);
+						inputValue(chp.getStateTextBox(), leadState);
+						inputValue(chp.getCountryTextBox(), leadCountry);
+						inputValue(chp.getCommentTextBox(), leadComments);
+						scrollToBottomPage();
+						elementClick(chp.getSaveButton());
+						statusMessage = getText(chp.getPopupMsg());
 						leadStatusList.add(statusMessage);
 						System.out.println("statusMessage is : " + statusMessage);
-						Thread.sleep(100);
+						Thread.sleep(2000);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+
 				}
-				elementClick(rlp.getSignoutDropdown());
-				elementClick(rlp.getSignOut());
+				elementClick(clp.getSignoutDropdown());
+				elementClick(clp.getSignOut());
 				Thread.sleep(2000);
 
 				/*
@@ -269,7 +248,7 @@ public class DRA_Radiance extends BaseClass {
 				int leadEmailIndex = 0;
 				int leadPhoneNumberIndex = 0;
 				int leadStatusIndex = 0;
-				// statusMessage = "Added in Radiance";
+				// statusMessage = "Added in Casa Grande";
 				Label outputFileLeadNameHeader = new Label(0, 0, "Names");
 				outputFileWorksheet.addCell(outputFileLeadNameHeader);
 				Label outputFileEmailIDHeader = new Label(1, 0, "Email ID");
@@ -307,7 +286,7 @@ public class DRA_Radiance extends BaseClass {
 
 	public static void main(String[] args) throws Exception {
 
-		String result = radianceTest(companyFilePath, leadsFilePath);
+		String result = draHomesTest(companyFilePath, leadsFilePath);
 		System.out.println(result);
 
 	}

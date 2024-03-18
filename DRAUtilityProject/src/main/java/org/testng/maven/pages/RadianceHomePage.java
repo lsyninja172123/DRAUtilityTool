@@ -47,7 +47,8 @@ public class RadianceHomePage {
 	@FindBy(xpath="//button[@class='slds-combobox__input slds-input_faux']")
 	private WebElement selectProjectDropdown;
 	
-	@FindBy(xpath="(//div[@role='listbox'])[1]//span[@class='slds-truncate']")
+	//(//div[@role='listbox'])[1]/lightning-base-combobox-item/span/span
+	@FindBy(xpath="//div[@aria-label='Interested Project']/lightning-base-combobox-item/span/span[@class='slds-truncate']")
 	private List<WebElement> projectList;
 	
 	public WebElement getNewButton() {
@@ -58,7 +59,7 @@ public class RadianceHomePage {
 		return projectList;
 	}
 
-	@FindBy(xpath="//button[@class='slds-combobox__input slds-input_faux']")
+	@FindBy(xpath="//button[contains(@aria-label,'Select an Option')]")
 	private WebElement selectIntrestedProject;
 	
 	@FindBy(xpath="/html/body/span/span/span[1]/input")

@@ -101,6 +101,10 @@ public class DRAUtility extends JPanel{
 		addNovaRunButton(panel);
 	//	addLifeStyleRunButton(panel);
 		addElephantineRunButton(panel);
+		addDRAHomesRunButton(panel);
+		addSISRunButton(panel);
+		addArunExcelloRunButton(panel);
+		addPropShellRunButton(panel);
 		
 		return panel;
 	}
@@ -416,6 +420,96 @@ public class DRAUtility extends JPanel{
 		});
 		panel.add(c);
 	}
+	
+	private static void addDRAHomesRunButton(JPanel panel) {
+
+		JButton c = new JButton("DRA Homes");
+		c.setBounds(40, 375, 120, 25);
+		c.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					if (companyFile != null && leadsFile != null) {
+						DRA_Elephantine.elephantineTest(companyFile, leadsFile);
+					} else {
+						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panel.add(c);
+	}
+	
+	private static void addSISRunButton(JPanel panel) {
+
+		JButton c = new JButton("SIS");
+		c.setBounds(190, 375, 120, 25);
+		c.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					if (companyFile != null && leadsFile != null) {
+						DRA_Elephantine.elephantineTest(companyFile, leadsFile);
+					} else {
+						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panel.add(c);
+	}
+	
+	private static void addArunExcelloRunButton(JPanel panel) {
+
+		JButton c = new JButton("ArunExcello");
+		c.setBounds(340, 375, 120, 25);
+		c.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					if (companyFile != null && leadsFile != null) {
+						DRA_Elephantine.elephantineTest(companyFile, leadsFile);
+					} else {
+						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panel.add(c);
+	}
+	
+	private static void addPropShellRunButton(JPanel panel) {
+
+		JButton c = new JButton("PropShell");
+		c.setBounds(490, 375, 120, 25);
+		c.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					if (companyFile != null && leadsFile != null) {
+						DRA_Elephantine.elephantineTest(companyFile, leadsFile);
+					} else {
+						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		panel.add(c);
+	}
+	
+	
 	
 	private static void showError(JLabel label, String string) {
 

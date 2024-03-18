@@ -1,7 +1,5 @@
 package org.testng.maven.test;
 
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +22,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -35,6 +34,8 @@ import org.testng.maven.pages.CasaGrandeHomePage;
 import org.testng.maven.pages.CasaGrandeLoginPage;
 import org.testng.maven.pages.RadianceHomePage;
 import org.testng.maven.pages.RadianceLoginPage;
+import org.testng.maven.pages.SameeraHomePage;
+import org.testng.maven.pages.SameeraLoginPage;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -43,7 +44,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 @SuppressWarnings("unused")
-public class DRA_Radiance extends BaseClass {
+public class DRA_SIS extends BaseClass {
 
 	public static WebDriver driver;
 	static String companyFilePath = "C:\\Users\\DELL\\Desktop\\DRAUtility\\Login Details.xls";
@@ -83,10 +84,10 @@ public class DRA_Radiance extends BaseClass {
 	}
 
 	@AfterMethod // AfterMethod annotation - This method executes after every test execution
-	public void screenShot(ITestResult radianceResult) {
+	public void screenShot(ITestResult sisResult) {
 		// using ITestResult.FAILURE is equals to result.getStatus then it enter into if
 		// condition
-		if (ITestResult.FAILURE == radianceResult.getStatus()) {
+		if (ITestResult.FAILURE == sisResult.getStatus()) {
 			try {
 				// To create reference of TakesScreenshot
 				TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -96,7 +97,7 @@ public class DRA_Radiance extends BaseClass {
 				// result.getName() will return name of test case so that screenshot name will
 				// be same as test case name
 				FileUtils.copyFile(src,
-						new File(System.getProperty("user.dir").concat(radianceResult.getName() + ".png")));
+						new File(System.getProperty("user.dir").concat(sisResult.getName() + ".png")));
 				System.out.println("Successfully captured a screenshot");
 			} catch (Exception e) {
 				System.out.println("Exception while taking screenshot " + e.getMessage());
@@ -104,15 +105,15 @@ public class DRA_Radiance extends BaseClass {
 		}
 	}
 
-	public static String radianceTest(String companyFilePath, String leadsFilePath) throws Exception {
+	public static String sisTest(String companyFilePath, String leadsFilePath) throws Exception {
 
 		try {
 			browserLaunch();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		RadianceLoginPage rlp = new RadianceLoginPage(driver);
-		RadianceHomePage rhp = new RadianceHomePage(driver);
+		SameeraLoginPage slp = new SameeraLoginPage(driver);
+		SameeraHomePage shp = new SameeraHomePage(driver);
 
 		File companyDetails = new File(companyFilePath);
 		Workbook companyDetailsWorkbook = Workbook.getWorkbook(companyDetails);
@@ -127,9 +128,9 @@ public class DRA_Radiance extends BaseClass {
 		// outputExcelFile = "C:\\Users\\LAKSHMI SRI\\Desktop\\DRAUtility\\Domestic
 		// Reality\\Reports\\"
 		// .concat("RadianceReport_" + dateFormat.format(date) + ".xls");
-		outputExcelFile = System.getProperty("user.dir").concat("RadianceReport_" + dateFormat.format(date) + ".xls");
+		outputExcelFile = System.getProperty("user.dir").concat("SISReport_" + dateFormat.format(date) + ".xls");
 		WritableWorkbook outputFileWorkbook = Workbook.createWorkbook(new File(outputExcelFile));
-		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("Radiance", 0);
+		WritableSheet outputFileWorksheet = outputFileWorkbook.createSheet("SIS", 0);
 
 		List<String> companyNameList = new ArrayList<String>();
 		List<String> toList = new ArrayList<String>();
@@ -166,7 +167,7 @@ public class DRA_Radiance extends BaseClass {
 			passwordList.add(password);
 
 			switch (companyName) {
-			case "RADIANCE":
+			case "South India Shelters":
 
 				JavascriptExecutor executor = (JavascriptExecutor) driver;
 
@@ -176,12 +177,11 @@ public class DRA_Radiance extends BaseClass {
 					System.out.println("Inside switch userName :" + userName);
 					System.out.println("Inside switch password:" + password);
 
-					inputValue(rlp.getUserName(), userName);
-					inputValue(rlp.getPassWord(), password);
-					elementClick(rlp.getSignInButton());
+					inputValue(slp.getUserName(), userName);
+					inputValue(slp.getPassWord(), password);
+					elementClick(slp.getSignInButton());
 					Thread.sleep(10000);
-					executor.executeScript("arguments[0].click();", rhp.getAddLead());
-					Thread.sleep(2000);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -212,53 +212,91 @@ public class DRA_Radiance extends BaseClass {
 					leadCommentsList.add(leadComments);
 
 					try {
-
-						elementClick(rhp.getNewButton());
-						Thread.sleep(5000);
+						
 						WebDriverWait wait = new WebDriverWait(driver, 30);
-						wait.until(ExpectedConditions.visibilityOfElementLocated(
-								By.xpath("(//label[@class='slds-form-element__label'])[1]")));
-
-						System.out.println("Fetching the web element for modal container");
-						WebElement modalContainer = driver
-								.findElement(By.xpath("(//label[@class='slds-form-element__label'])[1]"));
-						System.out.println(modalContainer.getText());
-						Assert.assertEquals(modalContainer.getText(), "* Name");
-
-						elementClick(rhp.getFirstName());
-						System.out.println("After clicking First name textbox");
-						inputValue(rhp.getFirstName(), leadName);
-						elementClick(rhp.getSelectIntrestedProject());
-						Thread.sleep(1000);
-						List<WebElement> projectList = rhp.getProjectList();
-						for (WebElement webElement : projectList) {
-							System.out.println("Project List : " + webElement.getText());
-							if (webElement.getText().equalsIgnoreCase(leadProject)) {
-								System.out.println("Inside if loop : " + leadProject + " checking with project list");
-								JavascriptExecutor js = (JavascriptExecutor) driver;
-								js.executeScript("arguments[0].click();", webElement);
-							}
+						
+						elementClick(shp.getLeadActivities());
+						
+						
+						if (shp.getAddLead().isDisplayed()) {
+							executor.executeScript("arguments[0].click();", shp.getAddLead());
+							Thread.sleep(2000);
 						}
-
-						inputValue(rhp.getEmailIdTextBox(), leadEmailID);
+						
+						elementClear(shp.getFirstName());
+						elementClick(shp.getFirstName());
+						System.out.println("After clicking First name textbox");
+						inputValue(shp.getFirstName(), "Ms");
+						elementClear(shp.getLastName());
+						elementClick(shp.getLastName());
+						inputValue(shp.getLastName(), leadName);
+						System.out.println("Entering Last Name : "+leadName);
+						elementClear(shp.getEmailIdTextBox());
+						inputValue(shp.getEmailIdTextBox(), leadEmailID);
 						if (leadPhoneNumber.startsWith("5") || leadPhoneNumber.startsWith("1-5")) {
 							System.out.println("Enter valid phone number");
-						} else {
-							inputValue(rhp.getMobileNumberTextBox(), leadPhoneNumber);
+				        }
+						else {
+							elementClear(shp.getMobileNumberTextBox());
+							inputValue(shp.getMobileNumberTextBox(), leadPhoneNumber);
+							System.out.println("Phone number entered");
 						}
-
-						elementClick(rhp.getSaveButton());
-						wait.until(ExpectedConditions.visibilityOf(rhp.getAlertMessage()));
-						statusMessage = getText(rhp.getAlertMessage());
-						leadStatusList.add(statusMessage);
-						System.out.println("statusMessage is : " + statusMessage);
-						Thread.sleep(100);
+				        
+						Select s = new Select(shp.getSelectProjectDropdown());
+						List<WebElement> projectNames = s.getOptions();
+						for (WebElement webelement : projectNames) {
+							String projectName = webelement.getText();
+							if (projectName.equalsIgnoreCase(leadProject)) {
+								elementClick(webelement);
+								System.out.println("Selected the project "+webelement.getText());
+							}
+						}
+						inputValue(shp.getChannalPartnerName(), channelPartnerName);
+						System.out.println("Channel Partner Name entered");
+						inputValue(shp.getChannalPartnerEmail(), channelPartnerEmail);
+						System.out.println("Channel Partner Email entered");
+						inputValue(shp.getChannalPartnerPhNo(), channelPartnerMobileNumber);
+						System.out.println("Channel Partner Phone number entered");
+						
+						elementClick(shp.getSaveButton());
+						System.out.println("Save button clicked");
+						Thread.sleep(3000);
+						
+						try {
+							statusMessage = shp.getAlertMessage().getText();
+							if (shp.getAlertMessage().isDisplayed()) {
+								System.out.println(" inside shp.getAlertMessage() if loop");
+								statusMessage = getText(shp.getAlertMessage());
+								leadStatusList.add(statusMessage);
+								System.out.println("statusMessage is : " + statusMessage);
+								elementClick(shp.getCloseBtn());
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						Thread.sleep(4000);
+						try {
+							statusMessage = shp.getSuccessMsg().getText();
+							if (shp.getSuccessMsg().isDisplayed()) {
+								Thread.sleep(3000);
+								System.out.println(" inside shp.getSuccessMsg() if loop");
+								statusMessage = shp.getSuccessMsg().getText();
+								leadStatusList.add(statusMessage);
+								System.out.println("statusMessage is : " + statusMessage);
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
-				elementClick(rlp.getSignoutDropdown());
-				elementClick(rlp.getSignOut());
+				Thread.sleep(5000);
+				elementClick(slp.getSignoutDropdown());
+				elementClick(slp.getSignOut());
 				Thread.sleep(2000);
 
 				/*
@@ -306,8 +344,10 @@ public class DRA_Radiance extends BaseClass {
 	}
 
 	public static void main(String[] args) throws Exception {
+	//	System.out.println(System.getProperty("user.dir").concat("\\DRAUtility\\Reports\\").concat("RadianceReport_" + dateFormat.format(date) + ".xls"));
+	//	System.out.println(System.getProperty("user.dir"));
 
-		String result = radianceTest(companyFilePath, leadsFilePath);
+		String result = sisTest(companyFilePath, leadsFilePath);
 		System.out.println(result);
 
 	}
