@@ -431,7 +431,7 @@ public class DRAUtility extends JPanel{
 
 				try {
 					if (companyFile != null && leadsFile != null) {
-						DRA_Elephantine.elephantineTest(companyFile, leadsFile);
+						DRA_DRAHomes.draHomesTest(companyFile, leadsFile);
 					} else {
 						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
 					}
@@ -453,7 +453,7 @@ public class DRAUtility extends JPanel{
 
 				try {
 					if (companyFile != null && leadsFile != null) {
-						DRA_Elephantine.elephantineTest(companyFile, leadsFile);
+						DRA_SIS.sisTest(companyFile, leadsFile);
 					} else {
 						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
 					}
@@ -475,7 +475,7 @@ public class DRAUtility extends JPanel{
 
 				try {
 					if (companyFile != null && leadsFile != null) {
-						DRA_Elephantine.elephantineTest(companyFile, leadsFile);
+						DRA_ArunExcello.arunExcelloTest(companyFile, leadsFile);
 					} else {
 						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
 					}
@@ -497,7 +497,7 @@ public class DRAUtility extends JPanel{
 
 				try {
 					if (companyFile != null && leadsFile != null) {
-						DRA_Elephantine.elephantineTest(companyFile, leadsFile);
+						DRA_Propshell.propshellTest(companyFile, leadsFile);
 					} else {
 						showError(domesticHealthError, "Please select required companyDetails and leadsDetail excel files");
 					}
